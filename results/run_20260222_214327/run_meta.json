@@ -1,0 +1,64 @@
+{
+  "data": "rssiData.npz",
+  "seed": 7,
+  "train_hparams": {
+    "epochs": 200,
+    "batch": 32,
+    "lr": 0.0008,
+    "weight_decay": 0.0005,
+    "huber_beta": 0.02,
+    "lam_euclid": 0.9
+  },
+  "aug_hparams": {
+    "use_delaunay_aug": true,
+    "aug_seed": 12345,
+    "aug_per_simplex": 12,
+    "max_simplices": 1500
+  },
+  "select_metric": "p95_m",
+  "meta_from_data": {
+    "seed": 7,
+    "room_w": 5.0,
+    "room_h": 5.0,
+    "grid_n": 15,
+    "freq_hz": 2450000000.0,
+    "lambda_m": 0.12236426857142857,
+    "anchors_xy": [
+      [
+        0.15000000596046448,
+        0.15000000596046448
+      ],
+      [
+        4.849999904632568,
+        0.15000000596046448
+      ],
+      [
+        4.849999904632568,
+        4.849999904632568
+      ],
+      [
+        0.15000000596046448,
+        4.849999904632568
+      ]
+    ],
+    "T": 512,
+    "N_ANCHORS": 4,
+    "train_points_count": 225,
+    "test_points_count": 55,
+    "test_sampling": {
+      "N_TEST_RANDOM": 55,
+      "MIN_DIST_TO_GRID": 0.08928571428571429,
+      "grid_spacing": 0.35714285714285715
+    },
+    "channel_params": {
+      "TX_POWER_DBM": 0.0,
+      "PL0_DB": 40.0,
+      "N_EXP": 2.1,
+      "SHADOW_SIGMA_DB": 1.2,
+      "RSSI_NOISE_DB": 0.4,
+      "PHASE_NOISE_RAD": 0.08,
+      "MULTIPATH_K": 3,
+      "MULTIPATH_REL_AMP": 0.2
+    }
+  }
+}
