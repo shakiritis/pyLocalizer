@@ -1,5 +1,5 @@
 # pyLocalizer
-This repo trains a 2D CNN to predict **(x, y)** location from a short **time sequence** of RF measurements collected from **4 anchors**.  
+This repo trains a 2D CNN to predict **(x, y)** location from a short **time sequence** of RF measurements collected from **4 Omnidirectional Antennas**.  
 Each time step contains:
 - RSSI (dBm)
 - phase encoded as **cos(φ)** and **sin(φ)** (to avoid phase wrap discontinuities)
@@ -8,46 +8,25 @@ Training can optionally use **Delaunay triangulation augmentation** to synthesiz
 
 ## Directory Structure
 
-├── README.md
-├── results
-│   └── run_20220525_214327
-│       ├── best_ckpt.pt
-│       ├── curves.csv
-│       ├── error_cdf.png
-│       ├── errors_test.npy
-│       ├── final_ckpt.pt
-│       ├── run_meta.json
-│       ├── train_loss.png
-│       └── train_val_curves.png
-├── rssiData.npz
-├── src
-│   ├── augmentation.py
-│   ├── dataset.py
-│   ├── __init__.py
-│   ├── io_utils.py
-│   ├── losses.py
-│   ├── metrics.py
-│   ├── model.py
-│   ├── plotting.py
-│   ├── __pycache__
-│   │   ├── augmentation.cpython-312.pyc
-│   │   ├── dataset.cpython-312.pyc
-│   │   ├── __init__.cpython-312.pyc
-│   │   ├── io_utils.cpython-312.pyc
-│   │   ├── losses.cpython-312.pyc
-│   │   ├── metrics.cpython-312.pyc
-│   │   ├── model.cpython-312.pyc
-│   │   ├── plotting.cpython-312.pyc
-│   │   ├── train_eval.cpython-312.pyc
-│   │   └── utils_seed.cpython-312.pyc
-│   ├── train_eval.py
-│   └── utils_seed.py
-└── train.py
+- `pyLocalizer/`
+  - `train.py` — main training entry (creates `results/` run folders)
+  - `results/` — auto-created; each run gets its own timestamped folder
+  - `src/`
+    - `__init__.py`
+    - `io_utils.py` — load `.npz`, create run dir, JSON-safe saving
+    - `utils_seed.py` — deterministic seeding helpers
+    - `dataset.py` — PyTorch Dataset + normalization
+    - `model.py` — `CNN2D_TimeAnchor` architecture
+    - `losses.py` — Euclid + Huber combined loss
+    - `augmentation.py` — Delaunay augmentation (phase-correct mixing)
+    - `metrics.py` — localization error + summary stats
+    - `train_eval.py` — training loop + checkpointing + plot generation
+    - `plotting.py` — training curves + error CDF plots
 
 
 ## Dataset (`.npz`) Format
 
-Training expects a single NumPy archive (e.g., `rssiData.npz` or `synthetic_room_dataset.npz`) with these keys:
+Training expects a single NumPy archive (e.g., `rssiData.npz) with these keys:
 
 ### Required keys
 
