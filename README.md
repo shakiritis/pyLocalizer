@@ -1,5 +1,6 @@
 # pyLocalizer
-This repo trains a 2D CNN to predict **(x, y)** location from a short **time sequence** of RF measurements collected from **4 Omnidirectional Antennas**.  
+This repo trains a 2D CNN to predict **(x, y)** location from a short **time sequence** of RF measurements collected from **4 Omnidirectional Antennas**. The points grid is a 5.3x5.3 meters 2D grid where uniformly 15x15 training points are placed. The antennas are located at the corners of the 5x5 meters 2D space. The test locations are placed randomly within the points grid. The results achieve mean localization accuracy of ~5 cm on the test set. The median localization accuracy is also ~5 cm.  
+
 Each time step contains:
 - RSSI (dBm)
 - phase encoded as **cos(φ)** and **sin(φ)** (to avoid phase wrap discontinuities)
@@ -186,7 +187,6 @@ Evaluation computes Euclidean error per sample (meters) and summarizes:
 
 Basic run:
 
-```bash
 python3 train.py --data rssiData.npz
 
 
@@ -198,3 +198,8 @@ python3 train.py --data rssiData.npz \
   --aug_per_simplex 12 --max_simplices 1500 \
   --select_metric p95_m \
   --run_name sweep1
+
+## Accuracy
+
+<img width="1400" height="1000" alt="image" src="https://github.com/user-attachments/assets/2e02c26a-9f7c-44a1-8761-deacd1ec63c8" />
+
